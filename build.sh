@@ -8,7 +8,7 @@ SDK="${ANDROID_HOME:-$HOME/Android/Sdk}"
 BUILD_TOOLS="$SDK/build-tools/34.0.0"
 PLATFORM="$SDK/platforms/android-34/android.jar"
 OUT="$SCRIPT_DIR/build"
-APK_OUT="$SCRIPT_DIR/../apk"
+APK_OUT="$SCRIPT_DIR"
 
 AAPT2="$BUILD_TOOLS/aapt2"
 D8="$BUILD_TOOLS/d8"

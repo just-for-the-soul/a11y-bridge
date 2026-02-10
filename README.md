@@ -47,7 +47,11 @@ Android's [Accessibility Service](https://developer.android.com/reference/androi
 
 ## Quick Start
 
-### Pre-built APK
+### Download
+
+Grab the latest APK from [Releases](https://github.com/4ier/a11y-bridge/releases).
+
+### Install
 
 ```bash
 # Install

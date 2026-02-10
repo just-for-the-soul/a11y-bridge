@@ -2,6 +2,10 @@
 build/
 *.keystore
 
+# APK (use releases instead)
+*.apk
+*.apk.idsig
+
 # IDE
 .idea/
 *.iml

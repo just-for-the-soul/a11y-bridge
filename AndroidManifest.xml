@@ -10,12 +10,14 @@
 
     <application
         android:label="OpenClaw A11y"
-        android:icon="@android:drawable/ic_menu_compass">
+        android:icon="@android:drawable/ic_menu_compass"
+        android:directBootAware="true">
 
         <service
             android:name=".ClawAccessibilityService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="false">
+            android:exported="false"
+            android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>

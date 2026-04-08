@@ -42,7 +42,15 @@ jobs:
           echo "path=$APK_PATH" >> $GITHUB_OUTPUT
           echo "size=$APK_SIZE" >> $GITHUB_OUTPUT
 
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-a11y
+          path: ${{ steps.apk.outputs.path }}
+          retention-days: 7
+
       - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: ${{ steps.apk.outputs.path }}
@@ -64,3 +72,4 @@ jobs:
             ```bash
             npx skills add 4ier/a11y-bridge
             ```
+

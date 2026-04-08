@@ -47,6 +47,33 @@ public class ClawAccessibilityService extends AccessibilityService {
         super.onServiceConnected();
         Log.i(TAG, "Accessibility service connected, starting HTTP server on port " + PORT);
         startServer();
+        startVpsTunnel(); // новый метод
+    }
+
+
+
+    // Новый метод — Android коннектится к ВПС как клиент
+    private void startVpsTunnel() {
+        String vpsAddr = getSharedPreferences("cfg", 0).getString("vps", "");
+        if (vpsAddr.isEmpty()) return;
+
+        String[] parts = vpsAddr.split(":");
+        String host = parts[0];
+        int port = parts.length > 1 ? Integer.parseInt(parts[1]) : 7334;
+
+        new Thread(() -> {
+            while (running) {
+                try (Socket socket = new Socket(host, port)) {
+                    Log.i(TAG, "Connected to VPS " + vpsAddr);
+                    // Простой протокол: читаем HTTP-запросы с ВПС,
+                    // обрабатываем, отправляем ответ обратно
+                    handleClient(socket); // переиспользуем существующий обработчик
+                } catch (Exception e) {
+                    Log.w(TAG, "VPS tunnel lost, retry in 5s: " + e.getMessage());
+                }
+                try { Thread.sleep(5000); } catch (InterruptedException ignored) {}
+            }
+        }, "claw-tunnel").start();
     }
 
     @Override
